@@ -1,7 +1,5 @@
 <?php
-
-
-if (isset($_GET['searchterm'])) {
+if (isset($_GET['searchterm'])) { //check for search term
 	$baseurl = "http://dpswebprd1.tp.edu.sg:1801/delivery/sru?version=1.2&operation=searchRetrieve&query=IE.dc.title%3d";
 	$searchterm = $_GET['searchterm'];
 	$url = $baseurl . "\"" . $searchterm . "\"";
@@ -13,7 +11,7 @@ if (isset($_GET['searchterm'])) {
 		echo $xml->asXML();
 	}
 }else{
-	echo "Missing search term";
+	echo "<H1>HTTP Error 400</H1>";
+	http_response_code(400);
 }
-
 ?>
