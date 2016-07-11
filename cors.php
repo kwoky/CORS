@@ -1,6 +1,6 @@
 <?php
 if (isset($_GET['searchterm'])) { //check for search term
-	$baseurl = "http://dpswebprd1.tp.edu.sg:1801/delivery/sru?version=1.2&operation=searchRetrieve&query=IE.dc.title%3d";
+	$baseurl = "http://lx2.loc.gov:210/LCDB?operation=searchRetrieve&version=1.1&maximumRecords=10&recordSchema=mods&query=dc.title%3d";
 	$searchterm = $_GET['searchterm'];
 	$url = $baseurl . "\"" . $searchterm . "\"";
 	$xml = simplexml_load_file($url); //retrieve URL and parse XML content
