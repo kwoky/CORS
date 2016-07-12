@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Renders SRU service</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+
+<pre id="output"></pre>
+ 
+<script>
+	function getParameterByName(name, url) {
+		if (!url) url = window.location.href;
+		name = name.replace(/[\[\]]/g, "\\$&");
+		var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+			results = regex.exec(url);
+		if (!results) return null;
+		if (!results[2]) return '';
+		return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
+
+	var query = getParameterByName('searchterm');
+	//EIT does not support CORS
+	//var endpoint = "http://eit.ebscohost.com/Services/SearchService.asmx/Search?prof=kwokcy.onboarding.eit&pwd=ebs2819&db=asx&query=";
+	var endpoint = "http://eit.ebscohost.com/Services/SearchService.asmx/Search?prof=kwokcy.onboarding.eit&pwd=ebs2819&db=asx&query=";
+	
+	if (query!=null){
+		$.ajax({
+		  method: "GET",
+		  url: +query
+		}).done(function( eitdata ) {
+			console.debug(eitdata);
+			//$("#output" ).text(new XMLSerializer().serializeToString(msg.documentElement));
+			/*$("#output" ).append("Number of records found: "+$(eitdata).find('numberOfRecords').text()+"</br>");
+			$(eitdata).find('recordData').each(function(){
+				//console.debug($(this).text());
+				$("#output" ).append($(this).text()+"</br>");
+			});*/
+		})
+		.fail(function() {
+			$("#output" ).append("Unable to process request");
+		});
+	} else {
+		$("#output" ).append("Missing parameters");
+	}
+</script>
+ 
+</body>
+</html>
