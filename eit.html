@@ -23,20 +23,20 @@
 	var query = getParameterByName('searchterm');
 	//EIT does not support CORS
 	//var endpoint = "http://eit.ebscohost.com/Services/SearchService.asmx/Search?prof=kwokcy.onboarding.eit&pwd=ebs2819&db=asx&query=";
-	var endpoint = "http://eit.ebscohost.com/Services/SearchService.asmx/Search?prof=kwokcy.onboarding.eit&pwd=ebs2819&db=asx&query=";
+	var endpoint = "http://gss.ebscohost.com/kcyew/cors/eit_service.php?searchterm=";
 	
 	if (query!=null){
 		$.ajax({
 		  method: "GET",
-		  url: +query
+		  url: endpoint +query
 		}).done(function( eitdata ) {
-			console.debug(eitdata);
+			//console.debug(eitdata);
 			//$("#output" ).text(new XMLSerializer().serializeToString(msg.documentElement));
-			/*$("#output" ).append("Number of records found: "+$(eitdata).find('numberOfRecords').text()+"</br>");
-			$(eitdata).find('recordData').each(function(){
+			$("#output" ).append("Number of records found: "+$(eitdata).find('Statistic').find('Hits').text()+"</br>");
+			$(eitdata).find('rec').each(function(){
 				//console.debug($(this).text());
-				$("#output" ).append($(this).text()+"</br>");
-			});*/
+				$("#output" ).append("<a href='"+ $(this).find('plink').text() +"'>"+$(this).find('atl').text()+"</a></br>");
+			});
 		})
 		.fail(function() {
 			$("#output" ).append("Unable to process request");
