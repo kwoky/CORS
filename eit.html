@@ -1,13 +1,12 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
   <title>Renders EIT service</title>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
 
-<pre id="output"></pre>
+<div id="output"></div>
  
 <script>
 	function getParameterByName(name, url) {
@@ -33,10 +32,15 @@
 			//console.debug(eitdata);
 			//$("#output" ).text(new XMLSerializer().serializeToString(msg.documentElement));
 			$("#output" ).append("Number of records found: "+$(eitdata).find('Statistic').find('Hits').text()+"</br>");
+			
+			$("#output" ).append('<hr />');
 			$(eitdata).find('rec').each(function(){
 				//console.debug($(this).text());
 				$("#output" ).append("<a href='"+ $(this).find('plink').text() +"'>"+$(this).find('atl').text()+"</a></br>");
+				$("#output" ).append("<p>"+$(this).find('ab').text()+"</p><hr />");
 			});
+			//$("#output" ).append('<hr />');
+			
 		})
 		.fail(function() {
 			$("#output" ).append("Unable to process request");
